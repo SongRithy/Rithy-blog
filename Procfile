@@ -1,1 +1,1 @@
-web: gunicorn rithy-log:app
+web: gunicorn rithy-blog:app
