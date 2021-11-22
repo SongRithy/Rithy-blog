@@ -11,7 +11,7 @@ from flask_gravatar import Gravatar
 from functools import wraps
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+import os
 import smtplib
 
 app = Flask(__name__)
@@ -246,8 +246,9 @@ def contact():
         )
         db.session.add(new_message)
         db.session.commit()
-        my_email = "songrithy405@gmail.com"
-        my_password = "oWO$Ea4*NdK6"
+        my_email = os.environ.get('MY_EMAIL')
+        my_password = os.environ.get('MY_PASSWORD')
+
         with smtplib.SMTP("smtp.gmail.com", 587) as connection:
             connection.starttls()
             connection.login(user=my_email, password=my_password)
@@ -309,4 +310,4 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug= True)
+    app.run(host='0.0.0.0', port=5000)
